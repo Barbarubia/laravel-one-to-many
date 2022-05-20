@@ -12,11 +12,11 @@
         @endif
         <div class="row">
             <div class="col">
-                <h1>{{ $post->title }}</h1>
+                <h1 class="text-capitalize">{{ $post->title }}</h1>
             </div>
         </div>
         <div class="row d-flex justify-content-between mb-3">
-            <div class="col-3 border border-info border-5 p-3">
+            <div class="col-3 p-3">
                 <h6>Info post:</h6>
                 <small>Created: {{ $post->created_at }}</small>
                 @if ($post['updated_at'] != $post['created_at'])
@@ -32,14 +32,14 @@
                         <small>From: {{ $post->user->userInfo->city }}</small><br>
                         <small>Birthday: {{ $post->user->userInfo->birthday }}</small>
                     </div>
-                    <img src="{{ $post->user->userInfo->avatar }}" alt="{{ $post->user->name }}'s Avatar">
+                    <img class="w-25 h-25 rounded-circle" src="{{ $post->user->userInfo->avatar }}" alt="{{ $post->user->name }}'s Avatar">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 @if ($post['image'] != null)
-                    <img src="{{ $post->image }}" alt="{{ $post->title }}">
+                    <img class="mb-3" src="{{ $post->image }}" alt="{{ $post->title }}">
                 @endif
 
                 <p>{{ $post->content }}</p>
