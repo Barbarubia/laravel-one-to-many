@@ -13,13 +13,31 @@
         <div class="row">
             <div class="col">
                 <h1>{{ $post->title }}</h1>
-                <small>(Created at: {{ $post->created_at }}
+            </div>
+        </div>
+        <div class="row d-flex justify-content-between mb-3">
+            <div class="col-3 border border-info border-5 p-3">
+                <h6>Info post:</h6>
+                <small>Created: {{ $post->created_at }}</small>
                 @if ($post['updated_at'] != $post['created_at'])
-                    - Last update at: {{ $post->updated_at }}
+                    <br>
+                    <small>Last update: {{ $post->updated_at }}</small>
                 @endif
-                )
-                </small>
-                <br>
+            </div>
+            <div class="col-3 border border-info border-5 p-3">
+                <h6>About the author:</h6>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small>Name: {{ $post->user->name }}</small><br>
+                        <small>From: {{ $post->user->userInfo->city }}</small><br>
+                        <small>Birthday: {{ $post->user->userInfo->birthday }}</small>
+                    </div>
+                    <img src="{{ $post->user->userInfo->avatar }}" alt="{{ $post->user->name }}'s Avatar">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 @if ($post['image'] != null)
                     <img src="{{ $post->image }}" alt="{{ $post->title }}">
                 @endif
