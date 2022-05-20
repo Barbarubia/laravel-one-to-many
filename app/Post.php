@@ -27,4 +27,9 @@ class Post extends Model
         }
         return $slug;
     }
+
+    // Collegamento One-to-Many con la tabella users
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

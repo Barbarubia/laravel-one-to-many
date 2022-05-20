@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Post;
+use App\User;
 use Faker\Generator as Faker;
 
 class PostSeeder extends Seeder
@@ -18,8 +19,8 @@ class PostSeeder extends Seeder
             $title = $faker->words(rand(1, 10), true);
             Post::create([
                 'title'     => $title,
-                // Per l'immagine imposto che può essere null oppure un link a Lorem Picsum con id dell'immagine generato casualmente
-                'image'     => $faker->randomElement([null , 'https://picsum.photos/id/' . $faker->numberBetween(0, 999) . '/400/300']),
+                'user_id'   => User::inRandomOrder()->first()->id,  // Ad ogni post assegno un randomicamente un id corrispondente all'id esistente di un utente nella tabella users
+                'image'     => $faker->randomElement([null , 'https://picsum.photos/id/' . $faker->numberBetween(0, 999) . '/400/300']),    // Per l'immagine imposto che può essere null oppure un link a Lorem Picsum con id dell'immagine generato casualmente
                 'content'   => $faker->text(rand(100, 2000)),
                 'slug'      => Post::generateSlug($title)
             ]);

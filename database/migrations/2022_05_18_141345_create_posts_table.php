@@ -15,11 +15,18 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id'); // la FK non è unique perché è una relazione One-to-Many (un utente può creare più post)
             $table->string('title', 100);
             $table->string('image', 250)->nullable();
             $table->text('content');
             $table->string('slug', 105)->unique();
             $table->timestamps();
+
+            // Definizione della FK
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
+                // ->onDelete('SET NULL');
         });
     }
 
