@@ -60,8 +60,11 @@
                 </div>
                 <div class="col-3 d-flex flex-wrap justify-content-between align-items-center border py-1">
                     <a class="btn btn-primary" href="{{ route('admin.posts.show', $post->slug) }}"><i class="fa-solid fa-eye"></i> View</a>
-                    <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->slug) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                    <button class="btn btn-danger btn-delete" data-slug="{{ $post->slug }}"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                    {{-- Bottoni edit e view visibili solo sui propri posts --}}
+                    @if (Auth::user()->id === $post->user_id)
+                        <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->slug) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                        <button class="btn btn-danger btn-delete" data-slug="{{ $post->slug }}"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                    @endif
                 </div>
             </div>
         @endforeach

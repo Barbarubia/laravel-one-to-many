@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -78,6 +79,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        // Ogni user può modificare solo i propri posts
+        if (Auth::user()->id !== $post->user_id) abort(403);
+
         return view('admin.posts.edit', compact('post'));
     }
 
@@ -90,6 +94,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        // Ogni user può aggiornare solo i propri posts
+        if (Auth::user()->id !== $post->user_id) abort(403);
+
         // Validazione dei dati del form modificati ignorando la proprietà "unique" dello slug solo per la risorsa selezionata
         $this->validationParameters['slug'] = [
             'required',
@@ -116,6 +123,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // Ogni user può eliminare solo i propri posts
+        if (Auth::user()->id !== $post->user_id) abort(403);
+
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('deleted', 'Post #' . $post->id . ' deleted with success!');;
