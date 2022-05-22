@@ -30,7 +30,7 @@
                     <div>
                         <small>Name: {{ $post->user->name }}</small><br>
                         <small>From: {{ $post->user->userInfo->city }}</small><br>
-                        <small>Birthday: {{ date('d-m-Y', strtotime($post->user->userInfo->birthday)) }}</small>
+                        <small>Age: {{ $post->user->userInfo->age() }}</small>
                     </div>
                     <img class="w-25 h-25 rounded-circle" src="{{ $post->user->userInfo->avatar }}" alt="{{ $post->user->name }}'s Avatar">
                 </div>
