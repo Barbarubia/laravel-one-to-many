@@ -24,7 +24,7 @@
                     <small>Last update: {{ $post->updated_at->format('d-m-Y H:i') }}</small>
                 @endif
             </div>
-            <div class="col-3 border border-info border-5 p-3">
+            <div class="col-3 bg-white border border-info border-5 p-3">
                 <h6>About the author:</h6>
                 <div class="d-flex justify-content-between">
                     <div>
