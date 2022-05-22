@@ -18,10 +18,10 @@
         <div class="row d-flex justify-content-between mb-3">
             <div class="col-3 p-3">
                 <h6>Info post:</h6>
-                <small>Created: {{ $post->created_at }}</small>
+                <small>Created: {{ $post->created_at->format('d-m-Y H:i') }}</small>
                 @if ($post['updated_at'] != $post['created_at'])
                     <br>
-                    <small>Last update: {{ $post->updated_at }}</small>
+                    <small>Last update: {{ $post->updated_at->format('d-m-Y H:i') }}</small>
                 @endif
             </div>
             <div class="col-3 border border-info border-5 p-3">
@@ -30,7 +30,7 @@
                     <div>
                         <small>Name: {{ $post->user->name }}</small><br>
                         <small>From: {{ $post->user->userInfo->city }}</small><br>
-                        <small>Birthday: {{ $post->user->userInfo->birthday }}</small>
+                        <small>Birthday: {{ date('d-m-Y', strtotime($post->user->userInfo->birthday)) }}</small>
                     </div>
                     <img class="w-25 h-25 rounded-circle" src="{{ $post->user->userInfo->avatar }}" alt="{{ $post->user->name }}'s Avatar">
                 </div>
