@@ -49836,7 +49836,7 @@ if (titleForm) {
     Axios.post('/admin/slugger', {
       stringToSlug: titleInput
     }).then(function (response) {
-      console.log(response);
+      // console.log(response)
       eleSlug.value = response.data.slug;
     });
   });
