@@ -27,14 +27,17 @@
             <div class="col-3 d-flex align-items-center border py-1">
                 <h5 class="my-0">Title</h5>
             </div>
-            <div class="col-3 d-flex align-items-center border py-1">
+            <div class="col-2 d-flex align-items-center border py-1">
                 <h5 class="my-0">Slug</h5>
             </div>
             <div class="col-1 d-flex align-items-center border py-1">
-                <h5 class="my-0">Created at</h5>
+                <h5 class="my-0">Category</h5>
             </div>
             <div class="col-1 d-flex align-items-center border py-1">
-                <h5 class="my-0">Updated at</h5>
+                <h5 class="my-0">Author</h5>
+            </div>
+            <div class="col-1 d-flex align-items-center border py-1">
+                <h5 class="my-0">Last Edit</h5>
             </div>
             <div class="col-3 d-flex align-items-center border py-1">
                 <h5 class="my-0">Options</h5>
@@ -49,21 +52,24 @@
                 <div class="col-3 d-flex align-items-center border py-1">
                     <p class="my-0">{{ $post->title }}</p>
                 </div>
-                <div class="col-3 d-flex align-items-center border py-1">
+                <div class="col-2 d-flex align-items-center border py-1">
                     <p class="my-0">{{ $post->slug }}</p>
                 </div>
                 <div class="col-1 d-flex align-items-center border py-1">
-                    <p class="my-0">{{ date('d/m/Y', strtotime($post->created_at)) }}</p>
+                    <p class="my-0">{{ $post->category->category }}</p>
+                </div>
+                <div class="col-1 d-flex align-items-center border py-1">
+                    <p class="my-0">{{ $post->user->name }}</p>
                 </div>
                 <div class="col-1 d-flex align-items-center border py-1">
                     <p class="my-0">{{ date('d/m/Y', strtotime($post->updated_at)) }}</p>
                 </div>
                 <div class="col-3 d-flex flex-wrap justify-content-between align-items-center border py-1">
-                    <a class="btn btn-primary" href="{{ route('admin.posts.show', $post->slug) }}"><i class="fa-solid fa-eye"></i> View</a>
+                    <a class="btn btn-primary d-flex flex-column align-items-center" href="{{ route('admin.posts.show', $post->slug) }}"><i class="fa-solid fa-eye"></i> View</a>
                     {{-- Bottoni edit e view visibili solo sui propri posts --}}
                     @if (Auth::user()->id === $post->user_id)
-                        <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->slug) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                        <button class="btn btn-danger btn-delete" data-slug="{{ $post->slug }}"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                        <a class="btn btn-primary d-flex flex-column align-items-center" href="{{ route('admin.posts.edit', $post->slug) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                        <button class="btn btn-danger btn-delete d-flex flex-column align-items-center" data-slug="{{ $post->slug }}"><i class="fa-solid fa-trash-can"></i> Delete</button>
                     @endif
                 </div>
             </div>
