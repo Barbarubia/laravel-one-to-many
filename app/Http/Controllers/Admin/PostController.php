@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\User;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -25,11 +26,34 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::paginate(25);
+        $posts = Post::where('id', '>', 0);
 
-        return view('admin.posts.index', compact('posts'));
+        if ($request->search) {
+            $posts->where('title', 'LIKE', "%$request->search%");
+        }
+
+        if ($request->category) {
+            $posts->where('category_id', $request->category);
+        }
+
+        if ($request->author) {
+            $posts->where('user_id', $request->author);
+        }
+
+        $posts = $posts->paginate(25);
+
+        $categories = Category::all();
+
+        $users = User::all();
+
+        return view('admin.posts.index', [
+            'posts'         => $posts,
+            'categories'    => $categories,
+            'users'         => $users,
+            'request'       => $request
+        ]);
     }
 
     /**

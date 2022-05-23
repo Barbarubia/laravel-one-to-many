@@ -20,6 +20,40 @@
                 <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">Add a new post</a>
             </div>
         </div>
+
+        <form action="" method="get" class="row d-flex flex-column gy-3 mb-5">
+            <div class="col-3 mb-2">
+                <label for="search-string" class="form-label mb-0">Text to search:</label>
+                <input type="text" class="form-control" id="search-string" name="search" value="{{ $request->search }}">
+            </div>
+
+            <div class="col-3 mb-2">
+                <label for="category" class="form-label mb-0">Category:</label><br>
+                <select class="form-select" aria-label="Default select example" name="category" id="category">
+                    <option value="" selected>Select a category</option>
+
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @if($category->id == $request->category) selected @endif>{{ $category->id }} - {{ $category->category }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-3 mb-2">
+                <label for="author" class="form-label mb-0">Author:</label><br>
+                <select class="form-select" aria-label="Default select example" name="author" id="author">
+                    <option value="" selected>Select an author</option>
+
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}" @if($user->id == $request->author) selected @endif>{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-3">
+                <button class="btn btn-primary">Apply filters</button>
+            </div>
+        </form>
+
         <div class="row bg-dark text-white">
             <div class="col-1 d-flex align-items-center border py-1">
                 <h5 class="my-0">#id</h5>
