@@ -88,7 +88,8 @@ class PostController extends Controller
         // Ogni user può modificare solo i propri posts
         if (Auth::user()->id !== $post->user_id) abort(403);
 
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
