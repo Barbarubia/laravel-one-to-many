@@ -32,4 +32,9 @@ class Post extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    // Collegamento One-to-Many con la tabella categories
+    public function category() {
+        return $this->belongsTo('App\Category');
+    }
 }
