@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +12,12 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     protected $validationParameters = [
-        'title'     => 'required|max:100',
-        'image'     => 'nullable|url|max:250',
-        'content'   => 'required',
-        'slug'      => 'required|unique:posts|max:105'
+        'title'         => 'required|max:100',
+        'slug'          => 'required|unique:posts|max:105',
+        // 'user_id'       => 'required|exists:App\User,id',
+        'category_id'   => 'required|exists:App\Category,id|max:30',
+        'image'         => 'nullable|url|max:250',
+        'content'       => 'required',
     ];
 
     /**
@@ -36,7 +39,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return  view('admin.posts.create');
+        $categories = Category::all();
+        return  view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -51,7 +55,9 @@ class PostController extends Controller
         $request->validate($this->validationParameters);
 
         // Variabile inputForm per richiedere tutti i dati inseriti nel form della pagina posts.create
-        $inputForm = $request->all();
+        $inputForm = $request->all() + [
+            'user_id' => Auth::user()->id
+        ];
 
         // Creazione della nuova riga nel database con i dati inseriti nel form
         $newPost = Post::create($inputForm);

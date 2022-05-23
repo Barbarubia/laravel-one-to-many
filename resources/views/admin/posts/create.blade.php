@@ -23,7 +23,22 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="form-label">Image Url - Insert a valid URL. Ex: https://picsum.photos/id/1//400/300</label>
+                        <select class="form-select" aria-label="Default select example" name="category_id" id="category">
+                            <option value="">Select a category</option>
+
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    @if ($category->id == old('category_id')) selected @endif>
+                                    {{ $category->id }} - {{ $category->category }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image Url - Insert a valid URL. Ex: https://picsum.photos/id/1/400/300</label>
                         <input type="text" class="form-control" id="image" name="image" value="{{ old('image') }}">
                         @error('image')
                             <div class="alert alert-danger">{{ $message }}</div>

@@ -13,7 +13,7 @@ class Post extends Model
         return 'slug';
     }
 
-    protected $fillable = ['title', 'image', 'content', 'slug'];
+    protected $fillable = ['title', 'user_id', 'category_id', 'image', 'content', 'slug'];
 
     // La funzione generateSlug creata a lezione funziona e non saprei come farla diversamente :-)
     // TODO: creare lo slug e aggiungere alla fine l'id del post
